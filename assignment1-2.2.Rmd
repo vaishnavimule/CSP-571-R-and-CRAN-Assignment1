@@ -1,0 +1,87 @@
+
+Loading Dataset :
+
+```{r}
+library(datasets)
+library('ggplot2')
+data(trees)
+summary(trees)
+
+```
+
+5-number summary of all features :
+
+```{r}
+print("5-number summary of Girth")
+
+```
+
+```{r}
+fivenum(trees$Girth)
+```
+
+```{r}
+print("5-number summary of Height")
+
+```
+
+```{r}
+fivenum(trees$Height)
+```
+
+```{r}
+print("5-number summary of Volume")
+
+```
+
+```{r}
+fivenum(trees$Volume)
+```
+
+Histrogram for each feature :
+
+```{r}
+ggplot(trees, aes(x=Girth)) + geom_histogram(color="yellow", fill="darkred", binwidth = 1)
+```
+```{r}
+ggplot(trees, aes(x=Height)) + 
+  geom_histogram(color="darkblue", fill="darkgreen", binwidth = 1)
+```
+```{r}
+ggplot(trees, aes(x=Volume)) + 
+  geom_histogram(color="black", fill="yellow", binwidth = 5)
+```
+
+
+Answer : Height has a normal distribution. Girth and Volume exhibit positive skewness.
+
+skewness of each feature :
+
+```{r}
+library("moments")
+
+sprintf("Skewness of Girth: %.3f", skewness(trees$Girth))
+sprintf("Skewness of Height: %.3f", skewness(trees$Height))
+sprintf("Skewness of Volume: %.3f", skewness(trees$Volume))
+```
+
+
+Answer : The values match with those of the plots (Histograms)
+
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

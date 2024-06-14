@@ -1,0 +1,83 @@
+
+Loading dataset-Boston :
+
+```{r}
+library(MASS)
+library('ggplot2')
+data(Boston)
+attach(Boston)
+summary(Boston)
+```
+
+Fitting regression between medv and istat :
+```{r}
+lm.fit=lm(medv~lstat)
+summary(lm.fit)
+```
+
+Plot the fitted values vs residual :
+
+```{r}
+plot(lstat ,medv)
+abline (lm.fit)
+
+abline (lm.fit ,lwd = 2, col = 'darkgreen')
+```
+
+
+```{r}
+plot(predict (lm.fit), residuals (lm.fit), xlab="Fitted Values", ylab="Residuals")
+```
+
+
+Answer: Looking at the plot above, the relationship between medv and lstat does depict some non-linearity.
+
+Predicting reponse values for lstst = 5, 10, and 15. And finding confidence and prediction intervals.
+
+```{r}
+predict(lm.fit ,data.frame(lstat=c(5,10,15) ),interval="confidence")
+```
+
+```{r}
+predict(lm.fit ,data.frame(lstat=c(5,10,15) ),interval="prediction")
+```
+
+
+Answer: Confidence and Prediction interval essentially predicts the response so they do the same thing but the interpretation is different. The prediction interval will be wider than the confidence interval since it must account for the variability in the mean and standard deviation estimators.
+
+
+Including lstat^2
+
+
+```{r}
+flexible_lm.fit=lm(medv~lstat+I(lstat^2),data=Boston)
+summary(flexible_lm.fit)
+```
+
+Answer : Linear Model adjusted r^2 = 0.5432 
+         non-linear Model adjusted r^2 = 0.6393
+
+
+Plotting relation between predictor and response :
+
+```{r}
+ggplot(Boston, aes(x = lstat, y = medv)) + geom_point(shape=1) +
+stat_smooth(method = 'lm', formula = y~x+poly(x,2))
+```
+
+
+
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+

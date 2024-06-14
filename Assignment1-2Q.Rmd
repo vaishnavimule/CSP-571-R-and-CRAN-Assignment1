@@ -1,0 +1,95 @@
+
+Loading dataset:
+
+```{r}
+library(datasets)
+data(iris)
+summary(iris)
+```
+box plots:
+
+```{r}
+library('ggplot2')
+ggplot(data = stack(iris), mapping = aes(x=ind, y = values)) + geom_boxplot(color = 'red')
+```
+
+
+-> IQR for all 4 attributes:
+
+
+```{r}
+sepal_width = iris$Sepal.Width
+sepal_length = iris$Sepal.Length
+petal_width = iris$Petal.Width
+petal_length = iris$Petal.Length
+```
+
+```{r}
+sprintf("IQR of Sepal Width: %.3f", IQR(sepal_width))
+sprintf("IQR of Sepal Length: %.3f", IQR(sepal_length))
+sprintf("IQR of Petal Width: %.3f", IQR(petal_width))
+sprintf("IQR of Petal Length: %.3f", IQR(petal_length))
+```
+Answer: Petal length has highest IQR = 3.500
+
+-> Standard Deviation for all features :
+
+```{r}
+sprintf("SD of Sepal Width: %.3f", sd(sepal_width))
+sprintf("SD of Sepal Length: %.3f", sd(sepal_length))
+sprintf("SD of Petal Width: %.3f", sd(petal_width))
+sprintf("SD of Petal Length: %.3f", sd(petal_length))
+```
+
+
+
+```{r}
+ggplot(iris, aes(x=petal_length)) +geom_histogram(color="black",fill="blue")
+```
+
+```{r}
+ggplot(iris, aes(x=petal_width)) +geom_histogram(color="black",fill="green")
+```
+
+
+answer : Both Petal length and petal width follow different distributions as observed from the standard deviation values obtained. Hence the findings do not match the empirical values.
+
+
+-> Boxplots for each feature in the iris dataset, with box-whisker per flower spicies.
+
+
+```{r}
+ggplot(data=iris) + geom_boxplot(mapping = aes(x=Species,y=sepal_width, color = Species))
+```
+
+```{r}
+ggplot(data=iris) + geom_boxplot(mapping = aes(x=Species,y=sepal_length, color = Species))
+```
+
+```{r}
+ggplot(data=iris) + geom_boxplot(mapping = aes(x=Species,y=petal_width, color = Species))
+```
+
+```{r}
+ggplot(data=iris) + geom_boxplot(mapping = aes(x=Species,y=petal_length, color = Species))
+```
+
+
+Answer = Virginica (Blue)
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

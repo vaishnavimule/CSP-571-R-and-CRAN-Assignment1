@@ -1,0 +1,49 @@
+
+Load auto-mpg dataset using UCI data repo :
+
+```{r}
+library('ggplot2')
+url="https://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data"
+
+auto_data <- read.csv(file=url, header=FALSE, sep="", as.is =4&9, 
+    col.names = c("mpg","cylinders","displacement","horsepower","weight","acceleration", "model_year", "origin", "car name"))
+```
+
+
+Converting horsepower column from string to numeric data type. And the replacing all NaN values with the median :
+
+```{r}
+auto_data$horsepower = as.numeric(auto_data$horsepower)
+```
+
+
+```{r}
+na_replaced_hp = auto_data$horsepower
+
+na_replaced_hp[which(is.na(na_replaced_hp))] = median(na_replaced_hp, na.rm =TRUE)
+```
+
+
+Comparing old and new means : 
+
+
+```{r}
+mean(auto_data$horsepower, na.rm=TRUE)
+```
+
+```{r}
+mean(na_replaced_hp)
+```
+
+Answer : The old mean is calculated ignoring NA values in the dataset, While the new Mean is calculated filling up the NA values with median hence the change in the mean values.
+
+
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
